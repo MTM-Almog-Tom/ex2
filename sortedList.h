@@ -9,7 +9,6 @@ namespace mtm
 {
 
     using std::exception;
-// להוסיף שתי פונקציות חסרות
     template<class T> class SortedList;
     template<class T>
     class Node
