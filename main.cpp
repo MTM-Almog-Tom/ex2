@@ -29,7 +29,7 @@ int main()
 
 template<class T>
 void printList(SortedList<T> list) {
-    for (auto it = list.begin(); !(it == list.end()); ++it) {
+    for (auto it = list.begin(); it != list.end(); ++it) {
         cout << *it << endl;
     }
     cout << endl;

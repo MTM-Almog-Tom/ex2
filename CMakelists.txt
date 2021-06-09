@@ -22,4 +22,4 @@ set(CPP_FILES part_a_test.cpp sortedList.h)
 
 add_executable(exe_name ${CPP_FILES})
 
-add_executable(playground playground.cpp main.cpp)
+#add_executable(test main.cpp)
