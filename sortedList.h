@@ -2,6 +2,8 @@
 // Created by Tom Guy on 06/06/2021.
 //
 
+#include <stdexcept>
+
 #ifndef EX2_SORTEDLIST_H
 #define EX2_SORTEDLIST_H
 
@@ -14,9 +16,10 @@ namespace mtm
     private:
         class Node
         {
-        private:
             T data;
             Node *next = nullptr;
+
+            ~Node();
 
             T &operator*();
 
@@ -119,19 +122,11 @@ namespace mtm
         data = *other;
     }
 
-//    template<class T>
-//    Node<T>::~Node()
-//    {
-//        delete &data;
-//        delete next;
-//    }
-
     template<class T>
     void SortedList<T>::insert(const T &data)
     {
         bool inserted = false;
         auto *new_item = new SortedList<T>::Node(data);
-//        new_item.setData(data);
         if (size == 0)
         {
             head = new_item;
@@ -173,12 +168,12 @@ namespace mtm
         next = new_next;
     }
 
-//    template<class T>
-//    void Node<T>::setData(const T &to_insert)
-//    {
-//        data = to_insert;
-//    }
-//
+    template<class T>
+    SortedList<T>::Node::~Node()
+    {
+        delete next;
+    }
+
 
     template<class T>
     typename SortedList<T>::const_iterator SortedList<T>::begin() const
@@ -198,6 +193,7 @@ namespace mtm
         if ((*iterator_to_remove) == (**head))
         {
             SortedList<T>::Node *temp = head->getNext();
+            head->setNext(nullptr);
             delete head;
             head = temp;
             size--;
