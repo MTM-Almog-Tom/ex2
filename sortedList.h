@@ -1,5 +1,5 @@
 //
-// Created by tomgu on 06/06/2021.
+// Created by Tom Guy on 06/06/2021.
 //
 
 #ifndef EX2_SORTEDLIST_H
@@ -8,85 +8,100 @@
 namespace mtm
 {
 
-    using std::exception;
-    template<class T> class SortedList;
-    template<class T>
-    class Node
-    {
-    private:
-        T data;
-        Node* next = nullptr;
-        T& operator*();
-        Node() = default;
-        Node& operator=(const Node& other);
-        explicit Node(const T& data_to_insert);
-        Node(Node& other);
-        ~Node() = default;
-        Node* getNext();
-        void setNext(Node *next);
-        void setData(const T& to_insert);
-        friend class SortedList<T>;
-    };
-
-
     template<class T>
     class SortedList
     {
+    private:
+        class Node
+        {
+        private:
+            T data;
+            Node *next = nullptr;
+
+            T &operator*();
+
+            Node &operator=(const Node &other);
+
+            explicit Node(const T &data_to_insert);
+
+            Node(Node &other);
+
+            Node *getNext();
+
+            void setNext(Node *next);
+
+            friend class SortedList<T>;
+        };
+
+        Node *head = nullptr;
+        Node *tail = nullptr;
+        int size = 0;
+
+        void clear();
+
     public:
 
         class const_iterator
         {
         private:
-            Node<T>* element;
-            Node<T>* getNext();
+            class Node *element;
+
+            class Node *getNext();
+
             const_iterator operator+(int number);
-            void setNext(Node<T> *next);
-            explicit const_iterator (Node<T> *node);
+
+            void setNext(class Node *next);
+
+            explicit const_iterator(class Node *node);
 
         public:
             const_iterator operator++();
+
             bool operator==(const_iterator iter);
-            const T& operator*() const;
+
+            const T &operator*() const;
+
             friend class SortedList<T>;
+
             bool operator!=(const_iterator other);
         };
 
-        SortedList() = default;                         //constractor
-        ~SortedList();                                  // destractor
-        SortedList(const SortedList& list);             // copy
-        void insert(const T& data);                     // insert
+        SortedList() = default;                         // constructor
+        ~SortedList();                                  // destructor
+        SortedList(const SortedList &list);             // copy
+        void insert(const T &data);                     // insert
         const_iterator begin() const;                         // begin
         const_iterator end() const;                           // end
         void remove(const_iterator iterator);           // remove
-        int length(const SortedList& list);             // length
-        SortedList<T>& operator=(const SortedList& list); // operator =
+        int length();             // length
+        SortedList<T> &operator=(const SortedList &list); // operator =
         template<class condition>
-        SortedList <T> &filter(condition cond);
+        SortedList<T> filter(condition cond);
+
         template<class operation>
-        SortedList <T> &apply(operation oper);
+        SortedList<T> apply(operation func);
 
-    private:
-
-        Node<T> *head = nullptr, *tail = nullptr;
-        int size = 0;
-        friend class const_iterator;
     };
 
     template<class T>
-    T &Node<T>::operator*()
+    T &SortedList<T>::Node::operator*()
     {
         return data;
     }
 
     template<class T>
-    Node<T>* Node<T>::getNext()
+    typename SortedList<T>::Node *SortedList<T>::Node::getNext()
     {
         return next;
     }
 
     template<class T>
-    Node<T>& Node<T>::operator=(const Node<T> &other)
+    typename SortedList<T>::Node &SortedList<T>::Node::operator=(const SortedList<T>::Node &other)
     {
+        if (&other == this)
+        {
+            return *this;
+        }
         T new_data = other.data;
         delete &data;
         data = new_data;
@@ -94,14 +109,12 @@ namespace mtm
     }
 
     template<class T>
-    Node<T>::Node(const T& data_to_insert)
+    SortedList<T>::Node::Node(const T &data_to_insert) : data(data_to_insert)
     {
-        T new_data = data_to_insert;
-        data = new_data;
     }
 
     template<class T>
-    Node<T>::Node(Node<T> &other)
+    SortedList<T>::Node::Node(SortedList<T>::Node &other)
     {
         data = *other;
     }
@@ -114,24 +127,24 @@ namespace mtm
 //    }
 
     template<class T>
-    void SortedList<T>::insert(const T& data)
+    void SortedList<T>::insert(const T &data)
     {
         bool inserted = false;
-        Node<T>* new_item = new Node<T>(data);
+        auto *new_item = new SortedList<T>::Node(data);
 //        new_item.setData(data);
-        if(size == 0)
+        if (size == 0)
         {
             head = new_item;
             new_item->setNext(tail);
             inserted = true;
         }
-        if(data < **head)
+        if (data < **head)
         {
             new_item->setNext(head);
             head = new_item;
             inserted = true;
         }
-        if(!inserted)
+        if (!inserted)
         {
             const_iterator item = begin();
             for (item = begin(); item + 1 != end(); ++item)
@@ -144,20 +157,20 @@ namespace mtm
                     break;
                 }
             }
-            if(!inserted)
+            if (!inserted)
             {
                 new_item->setNext(tail);
                 item.setNext(new_item);
             }
         }
 
-        size ++;
+        size++;
     }
 
     template<class T>
-    void Node<T>::setNext(Node<T> *next)
+    void SortedList<T>::Node::setNext(SortedList<T>::Node *new_next)
     {
-        this->next = next;
+        next = new_next;
     }
 
 //    template<class T>
@@ -182,26 +195,25 @@ namespace mtm
     template<class T>
     void SortedList<T>::remove(const_iterator iterator_to_remove)
     {
-        if(*iterator_to_remove == *head)
+        if ((*iterator_to_remove) == (**head))
         {
-            Node<T>* temp = (*head)->getNext();
-            delete *head;
+            SortedList<T>::Node *temp = head->getNext();
+            delete head;
             head = temp;
-            size --;
+            size--;
             return;
         }
-        Node<T>* previous = begin();
+        auto previous = begin();
         for (auto iter = begin(); iter != end(); ++iter)
         {
-            if(iterator_to_remove == iter)
+            if (iterator_to_remove == iter)
             {
-                (*previous)->getNext() = iter->getNext();
-                delete  iter;
+                previous.setNext(iter.getNext());
                 break;
             }
-          previous = iter;
+            previous = iter;
         }
-      size--;
+        size--;
     }
 
     template<class T>
@@ -215,35 +227,41 @@ namespace mtm
     {
         for (auto iter = list.begin(); iter != list.end(); ++iter)
         {
-            this->insert(*(iter));
+            insert(*(iter));
         }
     }
 
     template<class T>
-    int SortedList<T>::length(const SortedList &list)
+    int SortedList<T>::length()
     {
         return size;
     }
 
     template<class T>
-    SortedList<T> &SortedList<T>::operator=(const SortedList &list) //TODO
+    SortedList<T> &SortedList<T>::operator=(const SortedList &list)
     {
-        SortedList new_list(list);
-        delete this;
-        this = &new_list;
+        if (&list == this)
+        {
+            return *this;
+        }
+        clear();
+        for (auto iterator = list.begin(); iterator != list.end(); ++iterator)
+        {
+            insert(*iterator);
+        }
         return *this;
     }
 
     template<class T>
     template<class condition>
-    SortedList <T> &SortedList<T>::filter(condition cond)
+    SortedList<T> SortedList<T>::filter(condition cond)
     {
         SortedList<T> new_list;
         for (auto iterator = begin(); iterator != end(); ++iterator)
         {
-            if(cond(*iterator))
+            if (cond(*iterator))
             {
-                new_list.insert(iterator);
+                new_list.insert(*iterator);
             }
         }
         return new_list;
@@ -251,20 +269,28 @@ namespace mtm
 
     template<class T>
     template<class operation>
-    SortedList <T> &SortedList<T>::apply(operation oper)
+    SortedList<T> SortedList<T>::apply(operation func)
     {
         SortedList<T> new_list;
         for (auto iterator = begin(); iterator != end(); ++iterator)
         {
-            new_list.insert(oper(*iterator));
+            new_list.insert(func(*iterator));
         }
         return new_list;
     }
 
     template<class T>
+    void SortedList<T>::clear()
+    {
+        delete head;
+        head = nullptr;
+        size = 0;
+    }
+
+    template<class T>
     typename SortedList<T>::const_iterator SortedList<T>::const_iterator::operator++() //TODO
     {
-        if(this->element == nullptr)
+        if (element == nullptr)
         {
             throw std::out_of_range("out of range");
         }
@@ -286,7 +312,7 @@ namespace mtm
 
 
     template<class T>
-    Node<T> *SortedList<T>::const_iterator::getNext()
+    typename SortedList<T>::Node *SortedList<T>::const_iterator::getNext()
     {
         return element->next;
     }
@@ -301,7 +327,7 @@ namespace mtm
     typename SortedList<T>::const_iterator SortedList<T>::const_iterator::operator+(int number)
     {
         auto ret = *this;
-        for (int i = 0; i<number; ++i)
+        for (int i = 0; i < number; ++i)
         {
             ++ret;
         }
@@ -309,13 +335,13 @@ namespace mtm
     }
 
     template<class T>
-    void SortedList<T>::const_iterator::setNext(Node<T> *next)
+    void SortedList<T>::const_iterator::setNext(SortedList<T>::Node *next)
     {
         element->setNext(next);
     }
 
     template<class T>
-    SortedList<T>::const_iterator::const_iterator(Node<T> *node)
+    SortedList<T>::const_iterator::const_iterator(SortedList<T>::Node *node)
     {
         element = node;
     }

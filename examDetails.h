@@ -1,3 +1,6 @@
+#ifndef EXAMDETAILS_H_
+#define EXAMDETAILS_H_
+
 #include <iostream>
 #include <string>
 using std::cout;
@@ -41,3 +44,5 @@ public:
     {
     };
 };
+
+#endif //EXAMDETAILS_H_
