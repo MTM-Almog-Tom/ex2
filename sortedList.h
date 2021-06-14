@@ -14,75 +14,75 @@ namespace mtm
     class SortedList
     {
     private:
-        class Node
+        class Node //helper class node - the nodes in the list
         {
-            T data;
-            Node *next = nullptr;
+            T data; //data value - a class T object
+            Node *next = nullptr; // the next node in the list
 
-            ~Node();
+            ~Node(); // d'tor
 
-            T &operator*();
+            T &operator*(); // operator *
 
-            Node &operator=(const Node &other);
+            Node &operator=(const Node &other); //operator =
 
-            explicit Node(const T &data_to_insert);
+            explicit Node(const T &data_to_insert); // c'tor
 
-            Node(Node &other);
+            Node(Node &other); // copy c'tor
 
-            Node *getNext();
+            Node *getNext(); // return the next node in the list
 
-            void setNext(Node *next);
+            void setNext(Node *next); // setter to next
 
             friend class SortedList<T>;
         };
 
-        Node *head = nullptr;
-        Node *tail = nullptr;
-        int size = 0;
+        Node *head = nullptr; //points to the first node in the list
+        Node *tail = nullptr; // points to the next of the last node in the list
+        int size = 0; // the number of nodes in the list
 
         void clear();
 
     public:
 
-        class const_iterator
+        class const_iterator // ac const iterator for the list
         {
         private:
-            class Node *element;
+            class Node *element; // the node that the iterator points to
 
-            class Node *getNext();
+            class Node *getNext(); // return the next of the current node
 
-            const_iterator operator+(int number);
+            const_iterator operator+(int number); // operator + : receive an integer and return the value of the
+                                                  // node in the wanted place. throw out_of_range in case of exception
+            void setNext(class Node *next); // set the next to the node that the iterator points to
 
-            void setNext(class Node *next);
-
-            explicit const_iterator(class Node *node);
+            explicit const_iterator(class Node *node); // c'tor
 
         public:
-            const_iterator operator++();
+            const_iterator operator++(); //operator ++
 
-            bool operator==(const_iterator iter);
+            bool operator==(const_iterator iter); // operator ==
 
-            const T &operator*() const;
+            const T &operator*() const; //operator *
 
             friend class SortedList<T>;
 
-            bool operator!=(const_iterator other);
+            bool operator!=(const_iterator other); // operator !=
         };
 
-        SortedList() = default;                         // constructor
-        ~SortedList();                                  // destructor
-        SortedList(const SortedList &list);             // copy
-        void insert(const T &data);                     // insert
-        const_iterator begin() const;                         // begin
-        const_iterator end() const;                           // end
+        SortedList() = default; // constructor
+        ~SortedList();  // destructor
+        SortedList(const SortedList &list);  // copy
+        void insert(const T &data);  // insert
+        const_iterator begin() const; // return a const_iterator containing the beginning of the list
+        const_iterator end() const;  // return the end of the list
         void remove(const_iterator iterator);           // remove
         int length();             // length
         SortedList<T> &operator=(const SortedList &list); // operator =
         template<class condition>
-        SortedList<T> filter(condition cond);
+        SortedList<T> filter(condition cond); //return a list containing only values that pass the filter function
 
         template<class operation>
-        SortedList<T> apply(operation func);
+        SortedList<T> apply(operation func); //return a list containing all the values after the apply changed them.
 
     };
 
