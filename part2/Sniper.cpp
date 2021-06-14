@@ -1,5 +1,7 @@
 #include "Sniper.h"
 
+#define s 's'
+
 Sniper::Sniper(int health, int ammo, int range, int power, Team team) : Character(health, ammo, range, power, team), attack_counter(0) {} //constructor
 
 Sniper::Sniper(const Sniper &copy_from) : Character(copy_from) {} //copy constructor
@@ -73,4 +75,9 @@ void Sniper::characterReload(const GridPoint &coordinates)
 Sniper::~Sniper()
 {
     //לא לשכוח את האב
+}
+
+char get_char()
+{
+    return s;
 }
