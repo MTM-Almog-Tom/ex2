@@ -1,7 +1,4 @@
-#include <iostream>
-#include "Auxiliaries.h"
 #include "Character.h"
-using namespace mtm;
 
 Character::Character(int health, int ammo, int range, int power, Team team) : health(health),
                                                                               ammo(ammo),

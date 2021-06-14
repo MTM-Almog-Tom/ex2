@@ -7,31 +7,38 @@
 #include "Character.h"
 #include "Exceptions.h"
 #include "Auxiliaries.h"
+#include "Medic.h"
+#include "Soldier.h"
+#include "Sniper.h"
+
 using std::vector;
+using namespace mtm;
 
-class Game
+namespace mtm
 {
-private:
-    int height;
-    int width;
-    vector<vector<std::shared_ptr<Character>>> board;
+    class Game
+    {
+    private:
+        int height;
+        int width;
+        vector<vector<std::shared_ptr<Character>>> board;
 
-public:
-    Game(int height, int width);                                                           //constructor
-    Game(const Game &other);                                                               //copy constructor
-    Game &operator=(const Game &other);                                                    //copy assignment
-    void addCharacter(const GridPoint &coordinates, std::shared_ptr<Character> character); //Add Character
-    static std::shared_ptr<Character> makeCharacter(CharacterType type, Team team,
-                                                    units_t health, units_t ammo, units_t range, units_t power);
-    void move(const GridPoint &src_coordinates, const GridPoint &dst_coordinates);
-    void attack(const GridPoint &src_coordinates, const GridPoint &dst_coordinates);
-    void reload(const GridPoint &coordinates);
-    std::ostream &printGameBoard(std::ostream &os, const char *begin,
-                                 const char *end, unsigned int width) const;
-    bool isOver(Team *winningTeam = NULL) const;
-    // std::ostream &operator<<(std::ostream &os, const Game &game);
+    public:
+        Game(int height, int width);                                                           //constructor
+        Game(const Game &other);                                                               //copy constructor
+        Game &operator=(const Game &other);                                                    //copy assignment
+        void addCharacter(const GridPoint &coordinates, std::shared_ptr<Character> character); //Add Character
+        static std::shared_ptr<Character> makeCharacter(CharacterType type, Team team,
+                                                        units_t health, units_t ammo, units_t range, units_t power);
+        void move(const GridPoint &src_coordinates, const GridPoint &dst_coordinates);
+        void attack(const GridPoint &src_coordinates, const GridPoint &dst_coordinates);
+        void reload(const GridPoint &coordinates);
+        std::ostream &printGameBoard(std::ostream &os, const char *begin,
+                                     const char *end, unsigned int width) const;
+        bool isOver(Team *winningTeam = NULL) const;
+        // std::ostream &operator<<(std::ostream &os, const Game &game);
 
-    ~Game();
-};
-
+        ~Game();
+    };
+}
 #endif

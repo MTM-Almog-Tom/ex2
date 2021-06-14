@@ -1,14 +1,4 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
-#include <memory>
-#include "Medic.h"
-#include "Soldier.h"
-#include "Sniper.h"
-#include "Character.h"
 #include "Game.h"
-#include "Exceptions.h"
-#include "Auxiliaries.h"
 
 //constructor
 Game::Game(int height, int width)
