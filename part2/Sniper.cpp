@@ -1,6 +1,6 @@
 #include "Sniper.h"
 
-#define s 's'
+#define n 'n'
 
 Sniper::Sniper(int health, int ammo, int range, int power, Team team) : Character(health, ammo, range, power, team), attack_counter(0) {} //constructor
 
@@ -79,5 +79,5 @@ Sniper::~Sniper()
 
 char get_char()
 {
-    return s;
+    return n;
 }
