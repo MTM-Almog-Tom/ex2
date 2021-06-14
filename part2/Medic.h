@@ -30,6 +30,7 @@ namespace mtm
         int getMovmentRange() const;                                 // accessor function
         int getAttackAmmoCost() const;                               // accessor function
         ~Medic() override;
+        char get_char() override;                                    // virtual get char
     };
 }
 #endif
