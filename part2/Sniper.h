@@ -1,12 +1,13 @@
 #ifndef SNIPER_H_
 #define SNIPER_H_
 #include "Character.h"
+#include "Exceptions.h"
 #include "Auxiliaries.h"
 #include <memory>
-
-// const int MOVMENT_RANGE = 4;
-// const int LOAD_AMMO = 2;
-// const int ATTACK_AMMO_COST = 1;
+#include <vector>
+using std::shared_ptr;
+using std::vector;
+using namespace mtm;
 
 class Sniper : public Character
 {
@@ -20,11 +21,15 @@ public:
     Sniper(int health, int ammo, int range, int power, Team team); //constructor
     Sniper(const Sniper &copy_from);                               //copy constructor
     Sniper &operator=(const Sniper &copy_from);                    //copy assignment
-    virtual std::shared_ptr<Character> clone() const override;     //clone
-    int getMovmentRange() const override;                          // accessor function
-    int getLoadAmmo() const override;                              // accessor function
-    int getAttackAmmoCost() const override;                        // accessor function
-    ~Sniper();
+    virtual std::shared_ptr<Character> clone() const override;     //virtual clone
+    virtual void characterAttack(const GridPoint &src_coordinates,
+                                 const GridPoint &dst_coordinates,
+                                 vector<vector<std::shared_ptr<Character>>> board,
+                                 int height, int width) override; //virtual attack
+    virtual void characterReload(const GridPoint &coordinates);   //virtual reload
+    int getMovmentRange() const;                                  // accessor function
+    int getAttackAmmoCost() const;                                // accessor function
+    virtual ~Sniper();
 };
 
 #endif

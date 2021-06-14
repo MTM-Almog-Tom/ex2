@@ -24,11 +24,12 @@ public:
     static std::shared_ptr<Character> makeCharacter(CharacterType type, Team team,
                                                     units_t health, units_t ammo, units_t range, units_t power);
     void move(const GridPoint &src_coordinates, const GridPoint &dst_coordinates);
-    void attack(const GridPoint &src_coordinates, const GridPoint &dst_coordinates); // to check if to use typename to diff soldier with sniper&medic
+    void attack(const GridPoint &src_coordinates, const GridPoint &dst_coordinates);
     void reload(const GridPoint &coordinates);
     std::ostream &printGameBoard(std::ostream &os, const char *begin,
                                  const char *end, unsigned int width) const;
     bool isOver(Team *winningTeam = NULL) const;
+    // std::ostream &operator<<(std::ostream &os, const Game &game);
 
     ~Game();
 };

@@ -1,13 +1,13 @@
 #ifndef MEDIC_H_
 #define MEDIC_H_
 #include "Character.h"
+#include "Exceptions.h"
 #include "Auxiliaries.h"
 #include <memory>
-
+#include <vector>
+using std::shared_ptr;
+using std::vector;
 using namespace mtm;
-// const int MOVMENT_RANGE = 5;
-// const int LOAD_AMMO = 5;
-// const int ATTACK_AMMO_COST = 1;
 
 class Medic : public Character
 {
@@ -20,11 +20,15 @@ public:
     Medic(int health, int ammo, int range, int power, Team team); //constructor
     Medic(const Medic &copy_from);                                //copy constructor
     Medic &operator=(const Medic &copy_from);                     //copy assignment
-    virtual std::shared_ptr<Character> clone() const override;    // clone
-    int getMovmentRange() const override;                         // accessor function
-    int getLoadAmmo() const override;                             // accessor function
-    int getAttackAmmoCost() const override;                       // accessor function
-    ~Medic();
+    virtual std::shared_ptr<Character> clone() const override;    // virtual clone
+    virtual void characterAttack(const GridPoint &src_coordinates,
+                                 const GridPoint &dst_coordinates,
+                                 vector<vector<std::shared_ptr<Character>>> board,
+                                 int height, int width) override;        //attack
+    virtual void characterReload(const GridPoint &coordinates) override; //virtual reload
+    int getMovmentRange() const;                                         // accessor function
+    int getAttackAmmoCost() const;                                       // accessor function
+    virtual ~Medic() override;
 };
 
 #endif

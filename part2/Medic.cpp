@@ -1,9 +1,5 @@
-#include "Character.h"
-#include "Auxiliaries.h"
+
 #include "Medic.h"
-#include <memory>
-using std::shared_ptr;
-using namespace mtm;
 
 Medic::Medic(int health, int ammo, int range, int power, Team team) : Character(health, ammo, range, power, team) {} //constructor
 Medic::Medic(const Medic &copy_from) : Character(copy_from) {}                                                       //copy constructor
@@ -25,14 +21,48 @@ int Medic::getMovmentRange() const
 {
     return movment_range;
 }
-int Medic::getLoadAmmo() const
-{
-    return load_ammo;
-}
 int Medic::getAttackAmmoCost() const
 {
     return attack_ammo_cost;
 }
+
+void Medic::characterAttack(const GridPoint &src_coordinates,
+                            const GridPoint &dst_coordinates,
+                            vector<vector<std::shared_ptr<Character>>> board,
+                            int height, int width)
+{
+    if (board[src_coordinates.row][src_coordinates.col]->getMovmentRange() < mtm::GridPoint::distance(src_coordinates, dst_coordinates))
+    {
+        throw OutOfRange();
+    }
+    if (src_coordinates == dst_coordinates)
+    {
+        throw IllegalTarget();
+    }
+    if (ammo < attack_ammo_cost)
+    {
+        throw OutOfAmmo();
+    }
+    if (board[dst_coordinates.row][dst_coordinates.col]->getTeam() != this->getTeam())
+    {
+        board[dst_coordinates.row][dst_coordinates.col]->setHealth(-power);
+        if (board[dst_coordinates.row][dst_coordinates.col]->getHealth() <= 0)
+        {
+            board[dst_coordinates.row].erase(board[dst_coordinates.row].begin() + dst_coordinates.col);
+        }
+        ammo--;
+    }
+    else
+    {
+        board[dst_coordinates.row][dst_coordinates.col]->setHealth(power);
+    }
+}
+
+void Medic::characterReload(const GridPoint &coordinates)
+{
+    ammo = ammo + load_ammo;
+}
+
 Medic::~Medic()
 {
     //לא לשכוח את האב

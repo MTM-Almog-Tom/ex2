@@ -84,55 +84,26 @@ void Game::addCharacter(const GridPoint &coordinates, std::shared_ptr<Character>
     }
     this->board[coordinates.row][coordinates.col] = character;
 }
-static std::shared_ptr<Character> makeCharacter(CharacterType type, Team team,
-                                                units_t health, units_t ammo, units_t range, units_t power)
+std::shared_ptr<Character> Game::makeCharacter(CharacterType type, Team team,
+                                               units_t health, units_t ammo, units_t range, units_t power)
 {
     if (health <= 0 || ammo < 0 || power < 0 || range <= 0)
     {
         throw mtm::IllegalArgument();
     }
-    switch (type)
+    if (type == SOLDIER)
     {
-    case (SOLDIER):
-        if (team == POWERLIFTERS)
-        {
-            std::shared_ptr<Character> ptr(new Soldier(health, ammo, range, power, POWERLIFTERS));
-            return ptr;
-        }
-        else if (team = CROSSFITTERS)
-        {
-            std::shared_ptr<Character> ptr(new Soldier(health, ammo, range, power, CROSSFITTERS));
-            return ptr;
-        }
-        break;
-    case (SNIPER):
-        if (team == POWERLIFTERS)
-        {
-            std::shared_ptr<Character> ptr(new Sniper(health, ammo, range, power, POWERLIFTERS));
-            return ptr;
-        }
-        else if (team = CROSSFITTERS)
-        {
-            std::shared_ptr<Character> ptr(new Sniper(health, ammo, range, power, CROSSFITTERS));
-            return ptr;
-        }
-        break;
-    case (MEDIC):
-        if (team == POWERLIFTERS)
-        {
-            std::shared_ptr<Character> ptr(new Medic(health, ammo, range, power, POWERLIFTERS));
-            return ptr;
-        }
-        else if (team = CROSSFITTERS)
-        {
-            std::shared_ptr<Character> ptr(new Medic(health, ammo, range, power, CROSSFITTERS));
-            return ptr;
-        }
-        break;
-    default:
-        break;
+        std::shared_ptr<Character> ptr(new Soldier(health, ammo, range, power, team));
+        return ptr;
     }
-    // return ptr;
+    if (type == SNIPER)
+    {
+        std::shared_ptr<Character> ptr(new Sniper(health, ammo, range, power, team));
+        return ptr;
+    }
+
+    std::shared_ptr<Character> ptr(new Medic(health, ammo, range, power, team));
+    return ptr;
 }
 
 void Game::move(const GridPoint &src_coordinates, const GridPoint &dst_coordinates)
@@ -159,6 +130,31 @@ void Game::move(const GridPoint &src_coordinates, const GridPoint &dst_coordinat
     board[src_coordinates.row].erase(board[src_coordinates.row].begin() + src_coordinates.col);
 }
 
+void Game::attack(const GridPoint &src_coordinates, const GridPoint &dst_coordinates)
+{
+    if (src_coordinates.col < 0 || src_coordinates.row < 0 || dst_coordinates.col < 0 || dst_coordinates.row < 0 ||
+        src_coordinates.col >= this->width || src_coordinates.row >= this->height || dst_coordinates.col >= this->width || dst_coordinates.row >= this->height)
+    {
+        throw IllegalCell();
+    }
+    if (this->board[src_coordinates.row][src_coordinates.col] == nullptr)
+    {
+        throw CellEmpty();
+    }
+    this->board[src_coordinates.row][src_coordinates.col]->characterAttack(src_coordinates, dst_coordinates, board, height, width);
+}
+void Game::reload(const GridPoint &coordinates)
+{
+    if (coordinates.row > height || coordinates.col > width || coordinates.row < 0 || coordinates.col < 0)
+    {
+        throw mtm::IllegalCell();
+    }
+    if (this->board[coordinates.row][coordinates.col] == nullptr)
+    {
+        throw mtm::CellEmpty();
+    }
+    board[coordinates.row][coordinates.col]->characterReload(coordinates);
+}
 Game::~Game()
 {
 }
