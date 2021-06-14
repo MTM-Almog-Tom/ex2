@@ -135,6 +135,30 @@ static std::shared_ptr<Character> makeCharacter(CharacterType type, Team team,
     // return ptr;
 }
 
+void Game::move(const GridPoint &src_coordinates, const GridPoint &dst_coordinates)
+{
+
+    if (src_coordinates.col < 0 || src_coordinates.row < 0 || dst_coordinates.col < 0 || dst_coordinates.row < 0 ||
+        src_coordinates.col >= this->width || src_coordinates.row >= this->height || dst_coordinates.col >= this->width || dst_coordinates.row >= this->height)
+    {
+        throw mtm::IllegalCell();
+    }
+    if (this->board[src_coordinates.row][src_coordinates.col] == nullptr)
+    {
+        throw mtm::CellEmpty();
+    }
+    if (this->board[src_coordinates.row][src_coordinates.col]->getMovmentRange() < mtm::GridPoint::distance(src_coordinates, dst_coordinates))
+    {
+        throw mtm::MoveTooFar();
+    }
+    if (this->board[dst_coordinates.row][dst_coordinates.col] != nullptr)
+    {
+        throw mtm::CellOccupied();
+    }
+    board[dst_coordinates.row][dst_coordinates.col] = board[src_coordinates.row][src_coordinates.col]->clone();
+    board[src_coordinates.row].erase(board[src_coordinates.row].begin() + src_coordinates.col);
+}
+
 Game::~Game()
 {
 }

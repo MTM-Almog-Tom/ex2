@@ -17,18 +17,6 @@ private:
     vector<vector<std::shared_ptr<Character>>> board;
 
 public:
-    enum Team
-    {
-        POWERLIFTERS,
-        CROSSFITTERS
-    };
-    enum CharacterType
-    {
-        SOLDIER,
-        MEDIC,
-        SNIPER
-    };
-    typedef int units_t;
     Game(int height, int width);                                                           //constructor
     Game(const Game &other);                                                               //copy constructor
     Game &operator=(const Game &other);                                                    //copy assignment
