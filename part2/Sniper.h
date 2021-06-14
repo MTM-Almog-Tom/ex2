@@ -13,7 +13,7 @@ namespace mtm
     class Sniper : public Character
     {
     private:
-        int attack_counter = 0;
+        int attack_counter;
         const int movment_range = 4;
         const int load_ammo = 2;
         const int attack_ammo_cost = 1;

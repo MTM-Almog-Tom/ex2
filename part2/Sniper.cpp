@@ -1,6 +1,6 @@
 #include "Sniper.h"
 
-Sniper::Sniper(int health, int ammo, int range, int power, Team team) : Character(health, ammo, range, power, team) {} //constructor
+Sniper::Sniper(int health, int ammo, int range, int power, Team team) : Character(health, ammo, range, power, team), attack_counter(0) {} //constructor
 
 Sniper::Sniper(const Sniper &copy_from) : Character(copy_from) {} //copy constructor
 
