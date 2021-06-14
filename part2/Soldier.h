@@ -20,15 +20,15 @@ public:
     Soldier(int health, int ammo, int range, int power, Team team); //constructor
     Soldier(const Soldier &copy_from);                              //copy constructor
     Soldier &operator=(const Soldier &copy_from);                   //copy assignment
-    virtual std::shared_ptr<Character> clone() const override;      //virtual clone
-    virtual void characterAttack(const GridPoint &src_coordinates,
-                                 const GridPoint &dst_coordinates,
-                                 vector<vector<std::shared_ptr<Character>>> boardvc,
-                                 int height, int width);        //virtual attack
-    virtual void characterReload(const GridPoint &coordinates); //virtual reload
-    int getMovmentRange() const;                                // accessor function
-    int getAttackAmmoCost() const;                              // accessor function
-    virtual ~Soldier() override;
+    std::shared_ptr<Character> clone() const override;              //virtual clone
+    void characterAttack(const GridPoint &src_coordinates,
+                         const GridPoint &dst_coordinates,
+                         vector<vector<std::shared_ptr<Character>>> boardvc,
+                         int height, int width);        //virtual attack
+    void characterReload(const GridPoint &coordinates); //virtual reload
+    int getMovmentRange() const;                        // accessor function
+    int getAttackAmmoCost() const;                      // accessor function
+    ~Soldier() override;
 };
 
 #endif

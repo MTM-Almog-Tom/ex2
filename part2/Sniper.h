@@ -21,15 +21,15 @@ public:
     Sniper(int health, int ammo, int range, int power, Team team); //constructor
     Sniper(const Sniper &copy_from);                               //copy constructor
     Sniper &operator=(const Sniper &copy_from);                    //copy assignment
-    virtual std::shared_ptr<Character> clone() const override;     //virtual clone
-    virtual void characterAttack(const GridPoint &src_coordinates,
-                                 const GridPoint &dst_coordinates,
-                                 vector<vector<std::shared_ptr<Character>>> board,
-                                 int height, int width) override; //virtual attack
-    virtual void characterReload(const GridPoint &coordinates);   //virtual reload
-    int getMovmentRange() const;                                  // accessor function
-    int getAttackAmmoCost() const;                                // accessor function
-    virtual ~Sniper();
+    std::shared_ptr<Character> clone() const override;             //virtual clone
+    void characterAttack(const GridPoint &src_coordinates,
+                         const GridPoint &dst_coordinates,
+                         vector<vector<std::shared_ptr<Character>>> board,
+                         int height, int width) override; //virtual attack
+    void characterReload(const GridPoint &coordinates);   //virtual reload
+    int getMovmentRange() const;                          // accessor function
+    int getAttackAmmoCost() const;                        // accessor function
+    ~Sniper();
 };
 
 #endif
