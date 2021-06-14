@@ -38,6 +38,8 @@ namespace mtm
         virtual int getMovmentRange() const = 0;                        //virtual accessor function
         virtual int getAttackAmmoCost() const = 0;                      //virtual accessor function
         virtual ~Character();                                           //virtual distructor
+        char to_char();                                                 //return the char of the specefied character and team
+        virtual get_char();                                             // return the chae of the character
     };
 }
 #endif
