@@ -1,6 +1,8 @@
 
 #include "Medic.h"
 
+#define m 'm'
+
 Medic::Medic(int health, int ammo, int range, int power, Team team) : Character(health, ammo, range, power, team) {} //constructor
 Medic::Medic(const Medic &copy_from) : Character(copy_from) {}                                                       //copy constructor
 
@@ -66,4 +68,9 @@ void Medic::characterReload(const GridPoint &coordinates)
 Medic::~Medic()
 {
     //לא לשכוח את האב
+}
+
+char get_char()
+{
+    return m;
 }
