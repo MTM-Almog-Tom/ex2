@@ -1,5 +1,7 @@
 #include "Soldier.h"
 
+#define s 's'
+
 Soldier::Soldier(int health, int ammo, int range, int power, Team team) : Character(health, ammo, range, power, team) {} //constructor
 
 Soldier::Soldier(const Soldier &copy_from) : Character(copy_from) {} //copy constructor
@@ -76,4 +78,9 @@ void Soldier::characterReload(const GridPoint &coordinates)
 Soldier::~Soldier()
 {
     //לא לשכוח את האב
+}
+
+char get_char()
+{
+    return s;
 }
