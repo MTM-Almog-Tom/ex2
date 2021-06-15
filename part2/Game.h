@@ -36,7 +36,7 @@ namespace mtm
         std::ostream &printGameBoard(std::ostream &os, const char *begin,
                                      const char *end, unsigned int width) const;
         bool isOver(Team *winningTeam = NULL) const;
-        std::ostream &operator<<(std::ostream &os);                                         // operator <<
+        std::ostream &operator<<(std::ostream &os, Gam& game);                                   // operator <<
 
         ~Game();
     };
