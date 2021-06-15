@@ -1,6 +1,8 @@
 #ifndef GAME_H_
 #define GAME_H_
 #include <iostream>
+#include <string>
+#include <stdbool.h>
 #include <algorithm>
 #include <vector>
 #include <memory>
@@ -11,6 +13,9 @@
 #include "Soldier.h"
 #include "Sniper.h"
 
+using std::cout;
+using std::endl;
+using std::string;
 using std::vector;
 using namespace mtm;
 
@@ -36,8 +41,7 @@ namespace mtm
         std::ostream &printGameBoard(std::ostream &os, const char *begin,
                                      const char *end, unsigned int width) const;
         bool isOver(Team *winningTeam = NULL) const;
-        std::ostream &operator<<(std::ostream &os, Gam& game);                                   // operator <<
-
+        friend std::ostream &operator<<(std::ostream &os, const Game &game); // operator <<
         ~Game();
     };
 }

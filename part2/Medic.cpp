@@ -1,76 +1,75 @@
 
 #include "Medic.h"
 
-#define m 'm'
-
-Medic::Medic(int health, int ammo, int range, int power, Team team) : Character(health, ammo, range, power, team) {} //constructor
-Medic::Medic(const Medic &copy_from) : Character(copy_from) {}                                                       //copy constructor
-
-Medic &Medic::operator=(const Medic &copy_from)
+namespace mtm
 {
-    Character::operator=(copy_from);
-    return *this;
-}
+    Medic::Medic(int health, int ammo, int range, int power, Team team) : Character(health, ammo, range, power, team) {} //constructor
+    Medic::Medic(const Medic &copy_from) : Character(copy_from) {}                                                       //copy constructor
 
-std::shared_ptr<Character> Medic::clone() const
-{
-    shared_ptr<Character> ptr(new Medic(*this));
-    return ptr;
-}
-
-//geters
-int Medic::getMovmentRange() const
-{
-    return movment_range;
-}
-int Medic::getAttackAmmoCost() const
-{
-    return attack_ammo_cost;
-}
-
-void Medic::characterAttack(const GridPoint &src_coordinates,
-                            const GridPoint &dst_coordinates,
-                            vector<vector<std::shared_ptr<Character>>> board,
-                            int height, int width)
-{
-    if (board[src_coordinates.row][src_coordinates.col]->getMovmentRange() < mtm::GridPoint::distance(src_coordinates, dst_coordinates))
+    Medic &Medic::operator=(const Medic &copy_from)
     {
-        throw OutOfRange();
+        Character::operator=(copy_from);
+        return *this;
     }
-    if (src_coordinates == dst_coordinates)
+
+    std::shared_ptr<Character> Medic::clone() const
     {
-        throw IllegalTarget();
+        shared_ptr<Character> ptr(new Medic(*this));
+        return ptr;
     }
-    if (ammo < attack_ammo_cost)
+
+    //geters
+    int Medic::getMovmentRange() const
     {
-        throw OutOfAmmo();
+        return movment_range;
     }
-    if (board[dst_coordinates.row][dst_coordinates.col]->getTeam() != this->getTeam())
+    int Medic::getAttackAmmoCost() const
     {
-        board[dst_coordinates.row][dst_coordinates.col]->setHealth(-power);
-        if (board[dst_coordinates.row][dst_coordinates.col]->getHealth() <= 0)
+        return attack_ammo_cost;
+    }
+
+    void Medic::characterAttack(const GridPoint &src_coordinates,
+                                const GridPoint &dst_coordinates,
+                                vector<vector<std::shared_ptr<Character>>> board,
+                                int height, int width)
+    {
+        if (board[src_coordinates.row][src_coordinates.col]->getMovmentRange() < mtm::GridPoint::distance(src_coordinates, dst_coordinates))
         {
-            board[dst_coordinates.row].erase(board[dst_coordinates.row].begin() + dst_coordinates.col);
+            throw OutOfRange();
         }
-        ammo--;
+        if (src_coordinates == dst_coordinates)
+        {
+            throw IllegalTarget();
+        }
+        if (ammo < attack_ammo_cost)
+        {
+            throw OutOfAmmo();
+        }
+        if (board[dst_coordinates.row][dst_coordinates.col]->getTeam() != this->getTeam())
+        {
+            board[dst_coordinates.row][dst_coordinates.col]->setHealth(-power);
+            if (board[dst_coordinates.row][dst_coordinates.col]->getHealth() <= 0)
+            {
+                board[dst_coordinates.row].erase(board[dst_coordinates.row].begin() + dst_coordinates.col);
+            }
+            ammo--;
+        }
+        else
+        {
+            board[dst_coordinates.row][dst_coordinates.col]->setHealth(power);
+        }
     }
-    else
+
+    void Medic::characterReload(const GridPoint &coordinates)
     {
-        board[dst_coordinates.row][dst_coordinates.col]->setHealth(power);
+        ammo = ammo + load_ammo;
     }
-}
+    char Medic::getChar()
+    {
+        return 'm';
+    }
+    Medic::~Medic()
+    {
+    }
 
-void Medic::characterReload(const GridPoint &coordinates)
-{
-    ammo = ammo + load_ammo;
-}
-
-Medic::~Medic()
-{
-    //לא לשכוח את האב
-}
-
-char get_char()
-{
-    return m;
 }

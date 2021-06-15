@@ -1,8 +1,5 @@
 #include "Character.h"
 
-#define A 'A'
-#define a 'a'
-
 Character::Character(int health, int ammo, int range, int power, Team team) : health(health),
                                                                               ammo(ammo),
                                                                               range(range),
@@ -46,14 +43,4 @@ void Character::setAmmo(int ammo)
 
 Character::~Character()
 {
-}
-
-char to_char()
-{
-  char neutral_char = get_char();
-  if(team == POWERLIFTERS)
-  {
-    neutral_char += A-a;
-  }
-  return neutral_char;
 }

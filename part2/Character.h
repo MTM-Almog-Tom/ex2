@@ -37,9 +37,8 @@ namespace mtm
         virtual void characterReload(const GridPoint &coordinates) = 0; //virtual reload
         virtual int getMovmentRange() const = 0;                        //virtual accessor function
         virtual int getAttackAmmoCost() const = 0;                      //virtual accessor function
+        virtual char getChar() = 0;                                     // return the chae of the character
         virtual ~Character();                                           //virtual distructor
-        char to_char();                                                 //return the char of the specefied character and team
-        virtual get_char();                                             // return the chae of the character
     };
 }
 #endif

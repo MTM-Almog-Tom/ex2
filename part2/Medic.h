@@ -29,8 +29,8 @@ namespace mtm
         void characterReload(const GridPoint &coordinates) override; //virtual reload
         int getMovmentRange() const;                                 // accessor function
         int getAttackAmmoCost() const;                               // accessor function
+        char getChar() override;                                     // virtual get char
         ~Medic() override;
-        char get_char() override;                                    // virtual get char
     };
 }
 #endif

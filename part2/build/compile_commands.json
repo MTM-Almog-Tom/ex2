@@ -1,0 +1,42 @@
+[
+{
+  "directory": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/build",
+  "command": "C:\\TDM-GCC-64\\bin\\x86_64-w64-mingw32-g++.exe   -g -std=gnu++11 -o CMakeFiles\\exe_name.dir\\Game.cpp.obj -c C:\\Users\\User\\Desktop\\technion\\matam\\vs\\hw2\\ex2\\part2\\Game.cpp",
+  "file": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/Game.cpp"
+},
+{
+  "directory": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/build",
+  "command": "C:\\TDM-GCC-64\\bin\\x86_64-w64-mingw32-g++.exe   -g -std=gnu++11 -o CMakeFiles\\exe_name.dir\\Character.cpp.obj -c C:\\Users\\User\\Desktop\\technion\\matam\\vs\\hw2\\ex2\\part2\\Character.cpp",
+  "file": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/Character.cpp"
+},
+{
+  "directory": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/build",
+  "command": "C:\\TDM-GCC-64\\bin\\x86_64-w64-mingw32-g++.exe   -g -std=gnu++11 -o CMakeFiles\\exe_name.dir\\Auxiliaries.cpp.obj -c C:\\Users\\User\\Desktop\\technion\\matam\\vs\\hw2\\ex2\\part2\\Auxiliaries.cpp",
+  "file": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/Auxiliaries.cpp"
+},
+{
+  "directory": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/build",
+  "command": "C:\\TDM-GCC-64\\bin\\x86_64-w64-mingw32-g++.exe   -g -std=gnu++11 -o CMakeFiles\\exe_name.dir\\Exception.cpp.obj -c C:\\Users\\User\\Desktop\\technion\\matam\\vs\\hw2\\ex2\\part2\\Exception.cpp",
+  "file": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/Exception.cpp"
+},
+{
+  "directory": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/build",
+  "command": "C:\\TDM-GCC-64\\bin\\x86_64-w64-mingw32-g++.exe   -g -std=gnu++11 -o CMakeFiles\\exe_name.dir\\Medic.cpp.obj -c C:\\Users\\User\\Desktop\\technion\\matam\\vs\\hw2\\ex2\\part2\\Medic.cpp",
+  "file": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/Medic.cpp"
+},
+{
+  "directory": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/build",
+  "command": "C:\\TDM-GCC-64\\bin\\x86_64-w64-mingw32-g++.exe   -g -std=gnu++11 -o CMakeFiles\\exe_name.dir\\Soldier.cpp.obj -c C:\\Users\\User\\Desktop\\technion\\matam\\vs\\hw2\\ex2\\part2\\Soldier.cpp",
+  "file": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/Soldier.cpp"
+},
+{
+  "directory": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/build",
+  "command": "C:\\TDM-GCC-64\\bin\\x86_64-w64-mingw32-g++.exe   -g -std=gnu++11 -o CMakeFiles\\exe_name.dir\\Sniper.cpp.obj -c C:\\Users\\User\\Desktop\\technion\\matam\\vs\\hw2\\ex2\\part2\\Sniper.cpp",
+  "file": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/Sniper.cpp"
+},
+{
+  "directory": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/build",
+  "command": "C:\\TDM-GCC-64\\bin\\x86_64-w64-mingw32-g++.exe   -g -std=gnu++11 -o CMakeFiles\\exe_name.dir\\almogtest.cpp.obj -c C:\\Users\\User\\Desktop\\technion\\matam\\vs\\hw2\\ex2\\part2\\almogtest.cpp",
+  "file": "C:/Users/User/Desktop/technion/matam/vs/hw2/ex2/part2/almogtest.cpp"
+}
+]
