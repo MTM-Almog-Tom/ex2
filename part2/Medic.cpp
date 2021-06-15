@@ -33,25 +33,25 @@ namespace mtm
                                 vector<vector<std::shared_ptr<Character>>> board,
                                 int height, int width)
     {
-        if (board[src_coordinates.row][src_coordinates.col]->getMovmentRange() < mtm::GridPoint::distance(src_coordinates, dst_coordinates))
+        if (board[src_coordinates.row][src_coordinates.col]->getRange() < mtm::GridPoint::distance(src_coordinates, dst_coordinates))
         {
             throw OutOfRange();
-        }
-        if (src_coordinates == dst_coordinates)
-        {
-            throw IllegalTarget();
         }
         if (ammo < attack_ammo_cost)
         {
             throw OutOfAmmo();
         }
+        if ((src_coordinates == dst_coordinates) || (board[dst_coordinates.row][dst_coordinates.col] == nullptr))
+        {
+            throw IllegalTarget();
+        }
         if (board[dst_coordinates.row][dst_coordinates.col]->getTeam() != this->getTeam())
         {
             board[dst_coordinates.row][dst_coordinates.col]->setHealth(-power);
-            if (board[dst_coordinates.row][dst_coordinates.col]->getHealth() <= 0)
-            {
-                board[dst_coordinates.row].erase(board[dst_coordinates.row].begin() + dst_coordinates.col);
-            }
+            // if (board[dst_coordinates.row][dst_coordinates.col]->getHealth() <= 0)
+            // {
+            //     board[dst_coordinates.row][dst_coordinates.col] = nullptr;
+            // }
             ammo--;
         }
         else

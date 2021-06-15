@@ -2,8 +2,6 @@
 #define GAME_H_
 #include <iostream>
 #include <string>
-#include <stdbool.h>
-#include <algorithm>
 #include <vector>
 #include <memory>
 #include "Character.h"

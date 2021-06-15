@@ -9,7 +9,7 @@ Character::Character(const Character &copy_from) : health(copy_from.health),
                                                    ammo(copy_from.ammo),
                                                    range(copy_from.range),
                                                    power(copy_from.power),
-                                                   team(team) {} //copy constractor
+                                                   team(copy_from.team) {} //copy constractor
 //geters
 int Character::getHealth() const
 {

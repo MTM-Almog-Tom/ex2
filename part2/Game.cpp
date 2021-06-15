@@ -118,8 +118,8 @@ namespace mtm
         {
             throw mtm::CellOccupied();
         }
-        board[dst_coordinates.row][dst_coordinates.col] = board[src_coordinates.row][src_coordinates.col]->clone();
-        board[src_coordinates.row].erase(board[src_coordinates.row].begin() + src_coordinates.col);
+        board[dst_coordinates.row][dst_coordinates.col] = board[src_coordinates.row][src_coordinates.col];
+        board[src_coordinates.row][src_coordinates.col] = nullptr;
     }
 
     void Game::attack(const GridPoint &src_coordinates, const GridPoint &dst_coordinates)
@@ -133,8 +133,25 @@ namespace mtm
         {
             throw CellEmpty();
         }
+
         this->board[src_coordinates.row][src_coordinates.col]->characterAttack(src_coordinates, dst_coordinates, board, height, width);
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                if (board[i][j] != nullptr)
+                {
+                    if (board[i][j]->getHealth() <= 0)
+                    {
+                        //out << i << j << endl;
+                        board[i][j] = nullptr;
+                    }
+                }
+            }
+        }
     }
+
+    //reload
     void Game::reload(const GridPoint &coordinates)
     {
         if (coordinates.row > height || coordinates.col > width || coordinates.row < 0 || coordinates.col < 0)
@@ -200,12 +217,16 @@ namespace mtm
                         continue;
                     }
                     board_formation += (game.board[i][j]->getChar() + ('A' - 'a'));
+                    continue;
                 }
                 board_formation += ' ';
             }
         }
-        const char *begin = board_formation.c_str();
-        const char *end_string = begin + board_formation.size();
+        const char *begin = board_formation.cbegin().base();
+        const char *end_string = board_formation.cend().base();
+
+        // const char *begin = board_formation.c_str();
+        // const char *end_string = begin + board_formation.size();
         return printGameBoard(os, begin, end_string, (unsigned int)game.width);
     }
 

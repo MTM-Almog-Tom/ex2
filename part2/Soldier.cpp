@@ -32,37 +32,40 @@ namespace mtm
                                   vector<vector<std::shared_ptr<Character>>> board,
                                   int height, int width)
     {
-        if ((src_coordinates.row != dst_coordinates.row) && (src_coordinates.col != dst_coordinates.col))
+        if (board[src_coordinates.row][src_coordinates.col]->getRange() < mtm::GridPoint::distance(src_coordinates, dst_coordinates))
         {
-            throw IllegalTarget();
+            throw OutOfRange();
         }
         if (ammo < attack_ammo_cost)
         {
             throw OutOfAmmo();
         }
-        if (board[dst_coordinates.row][dst_coordinates.col]->getTeam() != this->getTeam())
+        if ((src_coordinates.row != dst_coordinates.row) && (src_coordinates.col != dst_coordinates.col))
         {
-            board[dst_coordinates.row][dst_coordinates.col]->setHealth(-power);
-            if (board[dst_coordinates.row][dst_coordinates.col]->getHealth() <= 0)
+            throw IllegalTarget();
+        }
+
+        if (board[dst_coordinates.row][dst_coordinates.col] != nullptr)
+        {
+            if (board[dst_coordinates.row][dst_coordinates.col]->getTeam() != this->getTeam())
             {
-                board[dst_coordinates.row].erase(board[dst_coordinates.row].begin() + dst_coordinates.col);
+                board[dst_coordinates.row][dst_coordinates.col]->setHealth(-power);
             }
         }
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
-                shared_ptr<GridPoint> ptr(new mtm::GridPoint(i, j));
-                if (mtm::GridPoint::distance(dst_coordinates, *ptr) <= (movment_range + 2) / 3)
+                if (board[i][j] != nullptr)
                 {
-                    if (dst_coordinates.row != i && dst_coordinates.col != j)
+                    shared_ptr<GridPoint> ptr(new mtm::GridPoint(i, j));
+                    if (mtm::GridPoint::distance(dst_coordinates, *ptr) <= (range + 2) / 3)
                     {
-                        if (board[i][j]->getTeam() != this->getTeam())
+                        if (dst_coordinates.row != i || dst_coordinates.col != j)
                         {
-                            board[i][j]->setHealth(-((power + 1) / 2));
-                            if (board[i][j]->getHealth() <= 0)
+                            if (board[i][j]->getTeam() != this->getTeam())
                             {
-                                board[i].erase(board[i].begin() + j);
+                                board[i][j]->setHealth(-((power + 1) / 2));
                             }
                         }
                     }
