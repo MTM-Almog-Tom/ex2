@@ -148,10 +148,48 @@ void Game::reload(const GridPoint &coordinates)
     board[coordinates.row][coordinates.col]->characterReload(coordinates);
 }
 
+
+bool isOver(Team* winningTeam=NULL) const
+{
+    bool powerlifters_left = false, crossfitters_left = false;
+    for (int i = 0; i != height; ++i)
+    {
+        for (int j = 0; j != width; ++j)
+        {
+            if(board[i][j])
+            {
+                if(board[i][j]->getTeam() == POWERLIFTERS)
+                {
+                    powerlifters_left = true;
+                    continue;
+                }
+                crossfitters_left = true;
+            }
+        }
+    }
+    if((crossfitters_left && powerlifters_left) || (!crossfitters_left && !powerlifters_left))
+    {
+        return false;
+    }
+    if(powerlifters_left)
+    {
+        if(winningTeam)
+        {
+            winningTeam = POWERLIFTERS;
+        }
+        return true;
+    }
+    if(winningTeam)
+    {
+        winningTeam = CROSSFITTERS;
+    }
+    return true;
+}
+
 std::ostream &operator<<(std::ostream &os, Game& game)
 {
     string board_formation;
-    for (int i = 0; i < game.hight; i++)
+    for (int i = 0; i < game.height; i++)
     {
         for (int j = 0; j < game.width; j++)
         {
