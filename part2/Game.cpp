@@ -148,22 +148,22 @@ void Game::reload(const GridPoint &coordinates)
     board[coordinates.row][coordinates.col]->characterReload(coordinates);
 }
 
-std::ostream &operator<<(std::ostream &os)
+std::ostream &operator<<(std::ostream &os, Game& game)
 {
     string board_formation;
-    for (int i = 0; i < hight; i++)
+    for (int i = 0; i < game.hight; i++)
     {
-        for (int j = 0; j < width; j++)
+        for (int j = 0; j < game.width; j++)
         {
             if(board[i][j] != nullptr)
             {
-                board_formation += board[i][j]->to_char();
+                board_formation += game.board[i][j]->to_char();
                 continue;;
             }
             board_formation += SPACE;
         }
     }
-    printGameBoard(os, board_formation.cbegin(), board_formation.cend(), width);
+    printGameBoard(os, board_formation.cbegin(), board_formation.cend(), game.width);
     return os;
 }
 
