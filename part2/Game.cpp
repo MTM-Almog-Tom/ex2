@@ -144,7 +144,7 @@ namespace mtm
                     if (board[i][j]->getHealth() <= 0)
                     {
                         //out << i << j << endl;
-                        board[i][j] = nullptr;
+                        this->board[i][j] = nullptr;
                     }
                 }
             }

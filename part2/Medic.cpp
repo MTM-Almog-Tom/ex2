@@ -48,10 +48,6 @@ namespace mtm
         if (board[dst_coordinates.row][dst_coordinates.col]->getTeam() != this->getTeam())
         {
             board[dst_coordinates.row][dst_coordinates.col]->setHealth(-power);
-            // if (board[dst_coordinates.row][dst_coordinates.col]->getHealth() <= 0)
-            // {
-            //     board[dst_coordinates.row][dst_coordinates.col] = nullptr;
-            // }
             ammo--;
         }
         else

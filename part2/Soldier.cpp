@@ -45,7 +45,7 @@ namespace mtm
             throw IllegalTarget();
         }
 
-        if (board[dst_coordinates.row][dst_coordinates.col] != nullptr)
+        if (board[dst_coordinates.row][dst_coordinates.col] != nullptr && this != nullptr)
         {
             if (board[dst_coordinates.row][dst_coordinates.col]->getTeam() != this->getTeam())
             {
