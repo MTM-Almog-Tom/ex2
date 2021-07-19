@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -rdynamic CMakeFiles/313151185_315155671.dir/part_a_test.cpp.o CMakeFiles/313151185_315155671.dir/examDetails.cpp.o  -o 313151185_315155671 

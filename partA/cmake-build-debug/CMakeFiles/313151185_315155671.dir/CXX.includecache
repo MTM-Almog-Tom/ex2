@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/tomgu/source/313151185-315155671/partA/examDetails.h
+iostream
+-
+string
+-
+
+C:/Users/tomgu/source/313151185-315155671/partA/part_a_test.cpp
+iostream
+-
+sortedList.h
+C:/Users/tomgu/source/313151185-315155671/partA/sortedList.h
+examDetails.h
+C:/Users/tomgu/source/313151185-315155671/partA/examDetails.h
+
+C:/Users/tomgu/source/313151185-315155671/partA/sortedList.h
+stdexcept
+-
+
